@@ -1,0 +1,116 @@
+
+/* Light theme (default) — :root is the <html> element */
+:root {
+  --bg: #f5f5f7;           
+  --surface: #ffffff;       
+  --text: #1d1d1f;          
+  --text-muted: #555;       
+  --border: #ddd;           
+  --accent: #0066cc;        
+  --button-bg: #1d1d1f;     
+  --button-text: #ffffff;   
+  --shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* Dark theme: only the variables change.
+   Applied when JavaScript sets data-theme="dark" on <html>. */
+[data-theme="dark"] {
+  --bg: #121212;
+  --surface: #1e1e1e;
+  --text: #f0f0f0;
+  --text-muted: #aaa;
+  --border: #333;
+  --accent: #4da3ff;        /* lighter blue so that the link can still be readable even in dark mode */
+  --button-bg: #f0f0f0;     /* button inverts: light button on dark page */
+  --button-text: #121212;
+  --shadow: 0 4px 16px rgba(0, 0, 0, 0.5); /* stronger shadow to show on dark */
+}
+/* The border where the dark mode will be staying */
+/* Make width/height include padding and border on every element */
+* {
+  box-sizing: border-box;
+}
+
+
+body {
+  margin: 0; /* remove the browser's default gap around the page */
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  /* Fade the colors instead of snapping when the theme changes */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+/* Title on the left, toggle button on the right */
+.header {
+  display: flex;
+  justify-content: space-between; /* push title and button to opposite ends */
+  align-items: center;            /* center them vertically */
+  flex-wrap: wrap;                /* stack on narrow screens instead of overflowing */
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background-color: var(--surface);
+  border-bottom: 1px solid var(--border);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.header h1 {
+  margin: 0; /* remove the default space above/below the heading */
+  font-size: 1.5rem;
+}
+
+
+
+.theme-toggle {
+  display: inline-flex;  /* lay out the icon and label side by side */
+  align-items: center;
+  gap: 0.5rem;           /* space between icon and label */
+  padding: 0.6rem 1.1rem;
+  border: none;
+  border-radius: 999px;  /* very large radius = pill shape */
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  font-size: 1rem;
+  cursor: pointer;       /* show the hand cursor on hover */
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.15s ease;
+}
+
+/* Lift the button slightly when hovered */
+.theme-toggle:hover {
+  transform: translateY(-1px);
+}
+
+/* Visible outline for keyboard users (Tab key), not mouse clicks */
+.theme-toggle:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+
+/* Center the content and limit its width so lines stay readable */
+.content {
+  max-width: 720px;
+  margin: 2rem auto; /* "auto" left/right centers the block */
+  padding: 0 1rem;   /* side gap on small screens */
+}
+
+/* The box holding the demo text — white in light mode, dark gray in dark mode */
+.card {
+  padding: 1.5rem;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.card p {
+  color: var(--text-muted);
+  line-height: 1.6; /* extra line spacing for easier reading */
+}
+
+/* Link color follows the theme's accent color */
+.link {
+  color: var(--accent);
+}
